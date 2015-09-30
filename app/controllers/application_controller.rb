@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
 	include ActionController::HttpAuthentication::Basic::ControllerMethods
 	include ActionController::HttpAuthentication::Token::ControllerMethods
-    # before_filter :add_allow_credentials_headers
+	before_filter :authenticate_user_from_token, except: [:token]
+
 
 	def token
  		authenticate_with_http_basic do |email, password|
@@ -14,7 +15,6 @@ class ApplicationController < ActionController::API
  		  end
 	end
 
-	before_filter :authenticate_user_from_token, except: [:token]
 	 
 	private
 	 
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::API
 	    	render json: { error: 'Bad Token'}, status: 401
 	  	end
 	end
+
+
+    # For all responses in this controller, return the CORS access control headers.
+
 
 	# def add_allow_credentials_headers                                                                                                                                                                                                                                                        
  #      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#section_5                                                                                                                                                                                                      

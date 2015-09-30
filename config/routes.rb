@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit]
 
   get :token, controller: 'application'
+  
+  # match '*any' => 'application#options', :via => [:options]
+
+  # match '*any' => 'application#options', :via => [:options]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -31,6 +35,7 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+  # resources :token
 
   # Example resource route with sub-resources:
   #   resources :products do
